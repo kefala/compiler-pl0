@@ -1,41 +1,47 @@
 "use strict";
 
-var Position = require("./CursorPosition");
-
 function LexicalAnalizer(code) {
 	this.code = code;
-	this.position = Position;
+	this.processCode = [];
 }
 
 LexicalAnalizer.prototype.start = function() {
-	var that = this;
-	for (var i = 0; i <= that.code.length; i++) {
+	var code = this.code;
+	var palabra = [], reglon = [], processCode = [];
+	var j = 0;
+	for (var i = 0; i <= code.length; i++) {
 
-		if (typeof(that.code.charCodeAt(i)) === "number" && !isNaN(that.code.charCodeAt(i))) {
-			
-			console.log(that.code.charAt(i), that.code.charCodeAt(i));
-			console.log(that.position);
-			
-			// call to apropiete boolean function
+		if (typeof(code.charCodeAt(i)) === "number" && !isNaN(code.charCodeAt(i))) {
+
+			if (code.charCodeAt(i) !== 32 && code.charCodeAt(i) !== 10) {
+				palabra.push(code.charAt(i));
+			}
+
 			if (false) {
 				break;
 			}
-
-			that.position.finish.column++;
-			if (that.code.charCodeAt(i) === 10) {
-				that.position.finish.line++;
-				that.position.finish.column = 0;
-				that.position.start.line++;
-				that.position.start.column = 0;
+			
+			if (code.charCodeAt(i) === 32) {
+				reglon.push(palabra);
+				palabra = [];
+				if (code.charCodeAt(i - 1) !== 32) {
+					reglon.push(palabra);
+				}
 			}
-			if (that.code.charCodeAt(i) === 32) {
-				that.position.start.column = that.position.finish.column;
-			}
+			if (code.charCodeAt(i) === 10 || code.length - 1 === i) {
+				reglon.push(palabra);
+				processCode.push(reglon);
+				palabra = [];
+				reglon = [];
 
+			}
 		}
-		
 	}
 
+	that.processCode = processCode;
+
 };
+
+
 
 module.exports = LexicalAnalizer;
