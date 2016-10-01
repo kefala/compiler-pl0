@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kefala/compiler-pl0.git"
@@ -14,5 +13,8 @@
   "bugs": {
     "url": "https://github.com/kefala/compiler-pl0/issues"
   },
-  "homepage": "https://github.com/kefala/compiler-pl0#readme"
+  "homepage": "https://github.com/kefala/compiler-pl0#readme",
+  "dependencies": {
+    "colors": "^1.1.2"
+  }
 }
