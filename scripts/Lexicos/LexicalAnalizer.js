@@ -61,6 +61,7 @@ LexicalAnalizer.prototype.start = function() {
 
 LexicalAnalizer.prototype.getItem = function(cb) {
 	var that = this;
+	var item = null;
 	that.position.column++;
 	
 	function set(position) {
@@ -74,6 +75,7 @@ LexicalAnalizer.prototype.getItem = function(cb) {
 
 	if (Array.isArray(that.processCode[that.position.line])) {
 		if (Array.isArray(that.processCode[that.position.line][that.position.column])) {
+			item = that.setItem(that.processCode[that.position.line][that.position.column]);
 			cb(that.processCode[that.position.line][that.position.column]);
 		} else {
 			set(new Position(++that.position.line, -1));
@@ -85,7 +87,9 @@ LexicalAnalizer.prototype.getItem = function(cb) {
 };
 
 
-
+LexicalAnalizer.prototype.setItem = function(array) {
+	console.log(array.fruits.toString());
+};
 
 
 module.exports = LexicalAnalizer;
