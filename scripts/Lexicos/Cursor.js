@@ -1,8 +1,8 @@
 "use strict";
 
-function Cursor(column, line) {
-	this.column = column;
+function Cursor(line, column) {
 	this.line = line;
+	this.column = column;
 }
 
 module.exports = Cursor;

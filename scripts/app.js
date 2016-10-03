@@ -1,6 +1,7 @@
 "use strict";
 
 var FileReader = require('./Utils/FileManager/FileReader');
+var Manager = require('./Utils/Manager');
 var LexicalAnalizer = require('./Lexicos/LexicalAnalizer');
 
 function App(fileName) {
@@ -19,7 +20,7 @@ App.prototype.start = function() {
 };
 
 App.prototype.createCompiler = function() {
-	global.LexicalAnalizer.start();
+	Manager.ready();
 };
 
 module.exports = App;
