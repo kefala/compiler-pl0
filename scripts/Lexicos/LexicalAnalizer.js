@@ -13,30 +13,39 @@ LexicalAnalizer.prototype.start = function() {
 	var code = this.code, palabra = [], reglon = [], processCode = [], isAdd = false;
 	
 	function addPalabra(palabra, reglon) {
-		if (!isAPR(palabra) || !isAIdent(palabra)) {
-			EM.error({
-				type: "Lexical "
-			});
-		}
-
+		// EM.error({
+		// 	type: "Lexical "
+		// });
 		reglon.push(palabra);
 		return reglon;
 	} 
 
 	function isAPR (palabra) {
-		return true;
+		var PRS = ["=", ":", "(", ")", "<", ">", "+", "-", "/", "*", ".", ",", ";"];
+
+		return PRS.indexOf(palabra);
 	}
 
 	function isAIdent (palabra) {
 		return true;
 	}
 
-
 	for (var i = 0; i <= code.length; i++) {
 
-		if (typeof(code.charCodeAt(i)) === "number" && !isNaN(code.charCodeAt(i))) {
-			if (code.charCodeAt(i) !== 32 && code.charCodeAt(i) !== 10) {
+		if (typeof(code.charCodeAt(i)) === "number" && !isNaN(code.charCodeAt(i)) ) {
+			var PR = (isAPR(code.charAt(i)) === -1) ? false : true;
+
+
+			if (code.charCodeAt(i) !== 32 && code.charCodeAt(i) !== 10 && !PR) {
 				palabra.push(code.charAt(i));
+			}
+
+			if (PR) {
+				if (palabra.length) {
+					reglon = addPalabra(palabra, reglon);
+				}
+				reglon = addPalabra([code.charAt(i)], reglon);
+				palabra = [];
 			}
 			
 			if (code.charCodeAt(i) === 32) {
@@ -56,7 +65,20 @@ LexicalAnalizer.prototype.start = function() {
 		}
 	}
 
-	this.processCode = processCode;
+	this.processCode = this.cleanTree(processCode);
+};
+
+LexicalAnalizer.prototype.cleanTree = function(processCode) {
+	processCode.forEach(function(item) {
+		if (Array.isArray(item) && item) {
+			for (var i = item.length - 1; i >= 0; i--) {
+				if (!item[i].length) {
+					item.splice(i, 1);
+				}
+			}
+		}
+	});
+	return processCode;
 };
 
 LexicalAnalizer.prototype.getItem = function(cb) {
@@ -88,7 +110,11 @@ LexicalAnalizer.prototype.getItem = function(cb) {
 
 
 LexicalAnalizer.prototype.setItem = function(array) {
-	console.log(array.fruits.toString());
+	var string = "";
+	array.forEach(function (char) {
+		string += char;
+	});
+	console.log(string);
 };
 
 

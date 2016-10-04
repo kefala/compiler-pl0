@@ -7,7 +7,7 @@ var Manager = {
 			if (obj === null) {
 				console.log("------fin-----");
 			} else {
-				console.log(obj);
+				//console.log(obj);
 				that.ready();
 			}
 		});
