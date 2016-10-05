@@ -5,13 +5,12 @@ var Manager = {
 		var that = this;
 		global.LexicalAnalizer.getItem(function (obj) {
 			if (obj === null) {
-				console.log("------fin-----");
+				return;
 			} else {
-				//console.log(obj);
+				console.log(obj.st);
 				that.ready();
 			}
 		});
-	
 	}
 };
 

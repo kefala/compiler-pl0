@@ -1,5 +1,7 @@
 "use strict";
+
 var EM = require('../Utils/Errors/ErrorManager');
+var Constantes = require('../Constantes/PalabrasResevadas');
 var Position = require("./Cursor");
 
 function LexicalAnalizer(code) {
@@ -13,28 +15,19 @@ LexicalAnalizer.prototype.start = function() {
 	var code = this.code, palabra = [], reglon = [], processCode = [], isAdd = false;
 	
 	function addPalabra(palabra, reglon) {
-		// EM.error({
-		// 	type: "Lexical "
-		// });
 		reglon.push(palabra);
 		return reglon;
 	} 
 
-	function isAPR (palabra) {
-		var PRS = ["=", ":", "(", ")", "<", ">", "+", "-", "/", "*", ".", ",", ";"];
-
+	function isASymbol (palabra) {
+		var PRS = Constantes.getSymbols();
 		return PRS.indexOf(palabra);
-	}
-
-	function isAIdent (palabra) {
-		return true;
 	}
 
 	for (var i = 0; i <= code.length; i++) {
 
 		if (typeof(code.charCodeAt(i)) === "number" && !isNaN(code.charCodeAt(i)) ) {
-			var PR = (isAPR(code.charAt(i)) === -1) ? false : true;
-
+			var PR = (isASymbol(code.charAt(i)) === -1) ? false : true;
 
 			if (code.charCodeAt(i) !== 32 && code.charCodeAt(i) !== 10 && !PR) {
 				palabra.push(code.charAt(i));
@@ -44,8 +37,8 @@ LexicalAnalizer.prototype.start = function() {
 				if (palabra.length) {
 					reglon = addPalabra(palabra, reglon);
 				}
-				reglon = addPalabra([code.charAt(i)], reglon);
 				palabra = [];
+				reglon = addPalabra([code.charAt(i)], reglon);
 			}
 			
 			if (code.charCodeAt(i) === 32) {
@@ -82,8 +75,7 @@ LexicalAnalizer.prototype.cleanTree = function(processCode) {
 };
 
 LexicalAnalizer.prototype.getItem = function(cb) {
-	var that = this;
-	var item = null;
+	var that = this, item = null;
 	that.position.column++;
 	
 	function set(position) {
@@ -98,24 +90,26 @@ LexicalAnalizer.prototype.getItem = function(cb) {
 	if (Array.isArray(that.processCode[that.position.line])) {
 		if (Array.isArray(that.processCode[that.position.line][that.position.column])) {
 			item = that.setItem(that.processCode[that.position.line][that.position.column]);
-			cb(that.processCode[that.position.line][that.position.column]);
+			cb(item);
 		} else {
 			set(new Position(++that.position.line, -1));
 		}
 	} else {
 		cb(null);
 	}
-	
 };
 
-
 LexicalAnalizer.prototype.setItem = function(array) {
-	var string = "";
+	var string = "", response = {};
 	array.forEach(function (char) {
 		string += char;
 	});
-	console.log(string);
+	if (Constantes.isAPr(string)) {
+		response = {type: "PR", PR: Constantes.get(string), st: string};
+	} else {
+		response = {palabra: string, type: "NOT PR", st: string};
+	}
+	return response;
 };
-
 
 module.exports = LexicalAnalizer;
