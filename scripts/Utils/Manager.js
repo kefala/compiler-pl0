@@ -1,5 +1,8 @@
 "use strict";
 
+
+var SyntacticAnalizer = require('./../Sintacticos/SyntacticAnalizer');
+
 var Manager = {
 	ready: function () {
 		var that = this;
@@ -7,7 +10,7 @@ var Manager = {
 			if (obj === null) {
 				return;
 			} else {
-				console.log(obj.st);
+				console.log(SyntacticAnalizer, obj.st);
 				that.ready();
 			}
 		});
