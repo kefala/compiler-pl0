@@ -25,11 +25,10 @@ LexicalAnalizer.prototype.start = function() {
 	}
 
 	for (var i = 0; i <= code.length; i++) {
-
 		if (typeof(code.charCodeAt(i)) === "number" && !isNaN(code.charCodeAt(i)) ) {
 			var PR = (isASymbol(code.charAt(i)) === -1) ? false : true;
 
-			if (code.charCodeAt(i) !== 32 && code.charCodeAt(i) !== 10 && !PR) {
+			if (code.charCodeAt(i) !== 32 && code.charCodeAt(i) !== 13 && code.charCodeAt(i) !== 10 && !PR) {
 				palabra.push(code.charAt(i));
 			}
 

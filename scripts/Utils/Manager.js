@@ -2,6 +2,7 @@
 
 
 var SyntacticAnalizer = require('./../Sintacticos/SyntacticAnalizer');
+var sa = new SyntacticAnalizer();
 
 var Manager = {
 	ready: function () {
@@ -10,7 +11,7 @@ var Manager = {
 			if (obj === null) {
 				return;
 			} else {
-				console.log(SyntacticAnalizer, obj.st);
+				sa.build(obj.st);
 				that.ready();
 			}
 		});
