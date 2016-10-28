@@ -4,7 +4,7 @@ procedure P;
   begin
     write (',');
     K := K + 1;
-    call P
+    call P;
   end;
 begin
   if K < 10 then

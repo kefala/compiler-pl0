@@ -104,9 +104,9 @@ LexicalAnalizer.prototype.setItem = function(array) {
 		string += char;
 	});
 	if (Constantes.isAPr(string)) {
-		response = {type: "PR", PR: Constantes.get(string), st: string};
+		response = {type: "PR", PR: Constantes.get(string), st: string, position: this.position};
 	} else {
-		response = {palabra: string, type: "NOT PR", st: string};
+		response = {palabra: string, type: "NOT PR", st: string, position: this.position};
 	}
 	return response;
 };

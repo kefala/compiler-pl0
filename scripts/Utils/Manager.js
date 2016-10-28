@@ -11,7 +11,7 @@ var Manager = {
 			if (obj === null) {
 				return;
 			} else {
-				sa.build(obj.st);
+				sa.build(obj);
 				that.ready();
 			}
 		});

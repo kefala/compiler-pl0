@@ -3,9 +3,13 @@ var X, Y;
 procedure INICIAR;
   const Y = 2;
   procedure ASIGNAR;
-    X := Y;
-  call ASIGNAR;
-
+    BEGIN
+    	X := Y;
+  	END;
+  BEGIN
+  	call ASIGNAR;
+  END;
+  
 begin
   write ('NUM='); readln (Y);
   call INICIAR;

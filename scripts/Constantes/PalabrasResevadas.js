@@ -21,6 +21,7 @@ PR.all = [
 	new PalabraResevada("COMMA", ",", "SYMBOL"),
 	new PalabraResevada("SEMICOLOM", ";", "SYMBOL"),
 	new PalabraResevada("TWOPOINTS", ":", "SYMBOL"),
+	new PalabraResevada("QUOTE", "'", "SYMBOL"),
 	new PalabraResevada("PERIOD", ".", "SYMBOL"),
 	new PalabraResevada("ODD", "ODD", "WORD"),
 	new PalabraResevada("BEGIN", "BEGIN", "WORD"),
@@ -31,11 +32,16 @@ PR.all = [
 	new PalabraResevada("DO", "DO", "WORD"),
 	new PalabraResevada("CALL", "CALL", "WORD"),
 	new PalabraResevada("CONST", "CONST", "WORD"),
+	new PalabraResevada("VAR", "VAR", "WORD"),
 	new PalabraResevada("INT", "INT", "WORD"),
 	new PalabraResevada("PROCEDURE", "PROCEDURE", "WORD"),
 	new PalabraResevada("OUT", "OUT", "WORD"),
 	new PalabraResevada("IN", "IN", "WORD"),
-	new PalabraResevada("ELSE", "ELSE", "WORD")
+	new PalabraResevada("ELSE", "ELSE", "WORD"),
+	new PalabraResevada("WRITELN", "WRITELN", "WORD"),
+	new PalabraResevada("WRITE", "WRITE", "WORD"),
+	new PalabraResevada("READ", "READ", "WORD"),
+	new PalabraResevada("READLN", "READLN", "WORD")
 ];
 
 PR.getSymbols = function () {
